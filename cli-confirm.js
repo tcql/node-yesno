@@ -1,27 +1,38 @@
 
 module.exports = {
+
     options : {
-        yes:    ['yes','y','true'],
-        no:     ['no','n','false']
+        yes:    ['yes','y'],
+        no:     ['no','n']
     },
 
+
     confirm : function (question, defaultvalue, callback, yesvalues, novalues) {
-        self = this
+        self = this;
+
+        if (!this.__invalid) {
+            this.resetInvalidHandler();
+        }
 
         yesvalues = yesvalues ? yesvalues : this.options.yes;
         novalues  = novalues  ? novalues : this.options.no;
+
+        yesvalues = yesvalues.map(function(v) { return v.toLowerCase(); });
+        novalues  = novalues.map(function(v) { return v.toLowerCase(); });
 
         process.stdout.write(question);
         process.stdin.setEncoding('utf8');
         process.stdin.once('data', function(val){
             var result;
-            if (val.trim() == "") {
+            var cleaned = val.trim().toLowerCase();
+
+            if (cleaned == "") {
                 result = defaultvalue;
             }
-            else if (yesvalues.indexOf(val.trim()) >= 0) {
+            else if (yesvalues.indexOf(cleaned) >= 0) {
                 result = true;
             }
-            else if (novalues.indexOf(val.trim()) >= 0) {
+            else if (novalues.indexOf(cleaned) >= 0) {
                 result = false;
             }
             else {
@@ -33,6 +44,7 @@ module.exports = {
         }).resume();
     },
 
+
     onInvalidHandler: function(callback) {
         this.__invalid = callback;
     },
@@ -40,13 +52,14 @@ module.exports = {
 
     _invalidHandler: function(question, defaultvalue, callback, yesvalues, novalues) {
         process.stdout.write("\nInvalid Response.\n");
-        process.stdout.write("Answer either yes : ("+ yesvalues.join(', ')+') \n')
-        process.stdout.write("Or no: ("+ novalues.join(', ')+') \n\n')
+        process.stdout.write("Answer either yes : ("+ yesvalues.join(', ')+') \n');
+        process.stdout.write("Or no: ("+ novalues.join(', ')+') \n\n');
         this.confirm(question,defaultvalue,callback,yesvalues,novalues);
     },
 
+
     resetInvalidHandler: function() {
-        this.onInvalidHandler(this.invalidHandler);
+        this.onInvalidHandler(this._invalidHandler);
     }
 
-}
+};
