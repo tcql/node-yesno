@@ -2,7 +2,7 @@
   "name": "cli-confirm",
   "version": "0.0.1",
   "description": "A simple utility for asking boolean questions in cli programs",
-  "main": "confirm.js",
+  "main": "cli-confirm.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
