@@ -7,7 +7,7 @@ module.exports = {
     },
 
 
-    confirm : function (question, defaultvalue, callback, yesvalues, novalues) {
+    ask : function (question, defaultvalue, callback, yesvalues, novalues) {
         self = this;
 
         if (!this.__invalid) {
@@ -20,13 +20,13 @@ module.exports = {
         yesvalues = yesvalues.map(function(v) { return v.toLowerCase(); });
         novalues  = novalues.map(function(v) { return v.toLowerCase(); });
 
-        process.stdout.write(question);
+        process.stdout.write(question+" ");
         process.stdin.setEncoding('utf8');
         process.stdin.once('data', function(val){
             var result;
             var cleaned = val.trim().toLowerCase();
 
-            if (cleaned == "") {
+            if (cleaned == "" && defaultvalue != null) {
                 result = defaultvalue;
             }
             else if (yesvalues.indexOf(cleaned) >= 0) {
@@ -54,7 +54,7 @@ module.exports = {
         process.stdout.write("\nInvalid Response.\n");
         process.stdout.write("Answer either yes : ("+ yesvalues.join(', ')+') \n');
         process.stdout.write("Or no: ("+ novalues.join(', ')+') \n\n');
-        this.confirm(question,defaultvalue,callback,yesvalues,novalues);
+        this.ask(question,defaultvalue,callback,yesvalues,novalues);
     },
 
 
