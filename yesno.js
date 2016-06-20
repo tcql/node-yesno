@@ -40,6 +40,7 @@ module.exports = {
                 return;
             }
 
+	    process.stdin.unref()
             callback(result);
         }).resume();
     },
