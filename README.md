@@ -112,4 +112,3 @@ yesno.onInvalidHandler(function (question, default_value, callback, yes_values, 
 
 - Allow supplying your own stdin/stdout streams so it doesn't always write to the process?
 - Put in some error handling
-- Tests
