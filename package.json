@@ -1,6 +1,6 @@
 {
   "name": "yesno",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A simple library for asking boolean questions in cli programs",
   "main": "yesno.js",
   "scripts": {

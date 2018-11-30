@@ -75,7 +75,7 @@ Now the question only responds to `groovy` as yes and `or what` as no.
 
 ##### Promisified ask
 
-If you're on a newer version of node (8+) you can also use the promisified `askAsync` function:
+If you're on a newer version of node (8+) you can use the promisified `askAsync` function:
 
 ```javascript
 var yesno = require('yesno');
