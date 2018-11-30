@@ -5,18 +5,20 @@ yesno is a super simple nodejs library for issuing and handling responses to boo
 
 ### Installation
 
-    npm install yesno
-
+```bash
+npm install yesno
+```
 
 ### API
-
-    ask(
-        <string> question, 
-        <boolean|null> default_value,
-        <function> response_handler,
-        <array|null> yes_values,
-        <array|null> no_values
-    )
+```
+ask(
+    <string> question, 
+    <boolean|null> default_value,
+    <function> response_handler,
+    <array|null> yes_values,
+    <array|null> no_values
+)
+```
 
 If `yes_values` or `no_values` aren't supplied, yesno falls back on accepting `yes`, `y` , `no`, and `n`.
 
@@ -26,15 +28,15 @@ All yesno responses are case insensitive.
 ### Example
 
 ```javascript
-    var yesno = require('yesno');
+var yesno = require('yesno');
 
-    yesno.ask('Are you sure you want to continue?', true, function (ok) {
-        if (ok) {
-            console.log("Yay!");
-        } else {
-            console.log("Nope.");
-        }
-    });
+yesno.ask('Are you sure you want to continue?', true, function (ok) {
+    if (ok) {
+        console.log("Yay!");
+    } else {
+        console.log("Nope.");
+    }
+});
 ```
 
 
