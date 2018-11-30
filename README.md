@@ -1,5 +1,7 @@
 ### Intro
 
+[![Build Status](https://travis-ci.org/tcql/node-yesno.svg?branch=master)](https://travis-ci.org/tcql/node-yesno)
+
 yesno is a super simple nodejs library for issuing and handling responses to boolean (or rather, binary) questions 
 
 
