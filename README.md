@@ -7,12 +7,8 @@ yesno is a super simple nodejs library for issuing and handling responses to boo
 
     npm install yesno
 
-Or point your package.json at the latest version of yesno
 
-
-### Usage
-
-The usage of **ask** is as follows:
+### API
 
     ask(
         <string> question, 
@@ -22,23 +18,24 @@ The usage of **ask** is as follows:
         <array|null> no_values
     )
 
-If yes_values or no_values aren't supplied, yesno falls back on accepting "yes" or "y" and "no" or "n".
+If `yes_values` or `no_values` aren't supplied, yesno falls back on accepting `yes`, `y` , `no`, and `n`.
 
-yesno handles all responses case insensitively.
+All yesno responses are case insensitive.
 
-Here's an example:
 
+### Example
+
+```javascript
     var yesno = require('yesno');
 
-    yesno.ask('Are you sure you want to continue?', true, function(ok) {
-        if(ok) {
+    yesno.ask('Are you sure you want to continue?', true, function (ok) {
+        if (ok) {
             console.log("Yay!");
         } else {
             console.log("Nope.");
         }
     });
-
-
+```
 
 
 
@@ -46,17 +43,19 @@ Here's an example:
 
 ##### Custom Yes/No response values
 
+```javascript
     var yesno = require('yesno');
 
-    yesno.ask('Dude, Is this groovy or what?',true, function(ok) {
-        if(ok) {
+    yesno.ask('Dude, Is this groovy or what?',true, function (ok) {
+        if (ok) {
             console.log("Tubular.");
         } else {
             console.log("Aw, why you gotta be like that?")
         }
-    }, ['groovy'],['or what']);
+    }, ['groovy'], ['or what']);
+```
 
-Now the question only responds to "groovy" as yes and "or what" as no.
+Now the question only responds to `groovy` as yes and `or what` as no.
 
 
 
@@ -64,24 +63,26 @@ Now the question only responds to "groovy" as yes and "or what" as no.
 
 Sometimes you may want to ensure the user didn't accidentally accept a default. You can disable the default response by passing null as the default_value parameter
 
+```javascript
     var yesno = require('yesno');
 
-    var handleResponse = function(ok) {
+    var handleResponse = function (ok) {
         ...
     };
 
     yesno.ask("Are you sure you want to 'rm-rf /' ?", null, handleResponse);
-
+```
 
 ##### Globally changing Yes/No respones values
 
 You can change the built in yes/no accepted responses by altering yesno's options attribute:
 
+```javascript
     var yesno = require('yesno');
 
-    yesno.options.yes  = ['ja','si'];
-    yesno.options.no   = ['nein','no'];
-
+    yesno.options.yes  = [ 'ja', 'si' ];
+    yesno.options.no   = [ 'nein', 'no' ];
+```
 
 ##### Handling invalid responses
 
@@ -94,6 +95,7 @@ print out a message like:
 
 and re-ask the question. If you want to change this behavior, you can set the invalid handler before asking your question:
 
+```javascript
     var yesno = require('yesno');
 
     yesno.onInvalidHandler(function (question, default_value, callback, yes_values, no_values) {
@@ -102,9 +104,9 @@ and re-ask the question. If you want to change this behavior, you can set the in
     });
 
     // ask a question
+```
 
-
-### Future / Todo
+### Todo
 
 - Allow supplying your own stdin/stdout streams so it doesn't always write to the process?
 - Put in some error handling
