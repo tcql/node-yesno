@@ -44,15 +44,15 @@ All yesno responses are case insensitive.
 ##### Custom Yes/No response values
 
 ```javascript
-    var yesno = require('yesno');
+var yesno = require('yesno');
 
-    yesno.ask('Dude, Is this groovy or what?',true, function (ok) {
-        if (ok) {
-            console.log("Tubular.");
-        } else {
-            console.log("Aw, why you gotta be like that?")
-        }
-    }, ['groovy'], ['or what']);
+yesno.ask('Dude, Is this groovy or what?',true, function (ok) {
+    if (ok) {
+        console.log("Tubular.");
+    } else {
+        console.log("Aw, why you gotta be like that?")
+    }
+}, ['groovy'], ['or what']);
 ```
 
 Now the question only responds to `groovy` as yes and `or what` as no.
@@ -64,13 +64,13 @@ Now the question only responds to `groovy` as yes and `or what` as no.
 Sometimes you may want to ensure the user didn't accidentally accept a default. You can disable the default response by passing null as the default_value parameter
 
 ```javascript
-    var yesno = require('yesno');
+var yesno = require('yesno');
 
-    var handleResponse = function (ok) {
-        ...
-    };
+var handleResponse = function (ok) {
+    ...
+};
 
-    yesno.ask("Are you sure you want to 'rm-rf /' ?", null, handleResponse);
+yesno.ask("Are you sure you want to 'rm-rf /' ?", null, handleResponse);
 ```
 
 ##### Globally changing Yes/No respones values
@@ -78,10 +78,10 @@ Sometimes you may want to ensure the user didn't accidentally accept a default. 
 You can change the built in yes/no accepted responses by altering yesno's options attribute:
 
 ```javascript
-    var yesno = require('yesno');
+var yesno = require('yesno');
 
-    yesno.options.yes  = [ 'ja', 'si' ];
-    yesno.options.no   = [ 'nein', 'no' ];
+yesno.options.yes  = [ 'ja', 'si' ];
+yesno.options.no   = [ 'nein', 'no' ];
 ```
 
 ##### Handling invalid responses
@@ -96,14 +96,14 @@ print out a message like:
 and re-ask the question. If you want to change this behavior, you can set the invalid handler before asking your question:
 
 ```javascript
-    var yesno = require('yesno');
+var yesno = require('yesno');
 
-    yesno.onInvalidHandler(function (question, default_value, callback, yes_values, no_values) {
-        process.stdout.write("\n Whoa. That was not a good answer. Well. No more tries for you.");
-        process.exit(1);
-    });
+yesno.onInvalidHandler(function (question, default_value, callback, yes_values, no_values) {
+    process.stdout.write("\n Whoa. That was not a good answer. Well. No more tries for you.");
+    process.exit(1);
+});
 
-    // ask a question
+// ask a question
 ```
 
 ### Todo
