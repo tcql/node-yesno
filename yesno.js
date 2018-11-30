@@ -1,14 +1,15 @@
+'use strict';
 
 module.exports = {
 
-    options : {
-        yes:    ['yes','y'],
-        no:     ['no','n']
+    options: {
+        yes: [ 'yes', 'y' ],
+        no:  [ 'no', 'n' ]
     },
 
 
-    ask : function (question, defaultvalue, callback, yesvalues, novalues) {
-        self = this;
+    ask: function (question, defaultvalue, callback, yesvalues, novalues) {
+        var self = this;
 
         if (!this.__invalid) {
             this.resetInvalidHandler();
@@ -17,16 +18,16 @@ module.exports = {
         yesvalues = yesvalues ? yesvalues : this.options.yes;
         novalues  = novalues  ? novalues : this.options.no;
 
-        yesvalues = yesvalues.map(function(v) { return v.toLowerCase(); });
-        novalues  = novalues.map(function(v) { return v.toLowerCase(); });
+        yesvalues = yesvalues.map(function (v) { return v.toLowerCase(); });
+        novalues  = novalues.map(function (v) { return v.toLowerCase(); });
 
-        process.stdout.write(question+" ");
+        process.stdout.write(question + ' ');
         process.stdin.setEncoding('utf8');
-        process.stdin.once('data', function(val){
+        process.stdin.once('data', function (val) {
             var result;
             var cleaned = val.trim().toLowerCase();
 
-            if (cleaned == "" && defaultvalue != null) {
+            if (cleaned == '' && defaultvalue != null) {
                 result = defaultvalue;
             }
             else if (yesvalues.indexOf(cleaned) >= 0) {
@@ -46,20 +47,20 @@ module.exports = {
     },
 
 
-    onInvalidHandler: function(callback) {
+    onInvalidHandler: function (callback) {
         this.__invalid = callback;
     },
 
 
-    _invalidHandler: function(question, defaultvalue, callback, yesvalues, novalues) {
-        process.stdout.write("\nInvalid Response.\n");
-        process.stdout.write("Answer either yes : ("+ yesvalues.join(', ')+') \n');
-        process.stdout.write("Or no: ("+ novalues.join(', ')+') \n\n');
-        this.ask(question,defaultvalue,callback,yesvalues,novalues);
+    _invalidHandler: function (question, defaultvalue, callback, yesvalues, novalues) {
+        process.stdout.write('\nInvalid Response.\n');
+        process.stdout.write('Answer either yes : (' + yesvalues.join(', ')+') \n');
+        process.stdout.write('Or no: (' + novalues.join(', ') + ') \n\n');
+        this.ask(question, defaultvalue, callback, yesvalues, novalues);
     },
 
 
-    resetInvalidHandler: function() {
+    resetInvalidHandler: function () {
         this.onInvalidHandler(this._invalidHandler);
     }
 
