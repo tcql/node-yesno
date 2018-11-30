@@ -10,6 +10,19 @@ npm install yesno
 ```
 
 ### API
+
+Promise based (returns a promise):
+```
+askAsync(
+    <string> question, 
+    <boolean|null> default_value,
+    <array|null> yes_values,
+    <array|null> no_values
+)
+```
+
+
+Callback based:
 ```
 ask(
     <string> question, 
@@ -59,6 +72,25 @@ yesno.ask('Dude, Is this groovy or what?',true, function (ok) {
 
 Now the question only responds to `groovy` as yes and `or what` as no.
 
+
+##### Promisified ask
+
+If you're on a newer version of node (8+) you can also use the promisified `askAsync` function:
+
+```javascript
+var yesno = require('yesno');
+
+async function main() {
+    var ok = await yesno.askAsync('Are you sure you want to continue?', true);
+    if (ok) {
+        console.log('Yay!');
+    } else {
+        console.log('Nope.');
+    }
+}
+
+main();
+```
 
 
 ##### No default value
