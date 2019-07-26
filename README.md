@@ -1,11 +1,10 @@
 [![Build Status](https://travis-ci.org/tcql/node-yesno.svg?branch=master)](https://travis-ci.org/tcql/node-yesno)
 
-
-yesno is a super simple nodejs library for issuing and handling responses to boolean (or rather, binary) questions 
-
-### Installation
+A nodejs library for issuing and handling responses to yes/no questions 
 
 Supports Node 8+.
+
+### Installation
 
 ```bash
 npm install yesno
