@@ -21,7 +21,7 @@
   "author": "Tim Channell",
   "license": "BSD",
   "devDependencies": {
-    "tap": "^14.0.0"
+    "tap": "^12.1.0"
   },
   "dependencies": {}
 }
