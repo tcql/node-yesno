@@ -1,81 +1,53 @@
 'use strict';
 
-var readline = require('readline');
+const readline = require('readline');
 
 
-var options = {
+const options = {
     yes: [ 'yes', 'y' ],
     no:  [ 'no', 'n' ]
 };
 
 
-function defaultInvalidHandler (question, defaultvalue, callback, yesvalues, novalues) {
+function defaultInvalidHandler ({ question, defaultValue, yesValues, noValues }) {
     process.stdout.write('\nInvalid Response.\n');
-    process.stdout.write('Answer either yes : (' + yesvalues.join(', ')+') \n');
-    process.stdout.write('Or no: (' + novalues.join(', ') + ') \n\n');
-    ask(question, defaultvalue, callback, yesvalues, novalues);
-}
-
-var invalidHandlerFunction = defaultInvalidHandler;
-
-
-function onInvalidHandler (callback) {
-    invalidHandlerFunction = callback;
+    process.stdout.write('Answer either yes : (' + yesValues.join(', ')+') \n');
+    process.stdout.write('Or no: (' + noValues.join(', ') + ') \n\n');
 }
 
 
-function ask (question, defaultvalue, callback, yesvalues, novalues) {
-    if (!invalidHandlerFunction)
-        invalidHandlerFunction = defaultInvalidHandler;
+async function ask ({ question, defaultValue, yesValues, noValues, invalid }) {
+    if (!invalid || typeof invalid !== 'function')
+        invalid = defaultInvalidHandler;
 
-    yesvalues = yesvalues ? yesvalues : options.yes;
-    novalues  = novalues  ? novalues : options.no;
+    yesValues = (yesValues || options.yes).map((v) => v.toLowerCase());
+    noValues  = (noValues || options.no).map((v) => v.toLowerCase());
 
-    yesvalues = yesvalues.map(function (v) { return v.toLowerCase(); });
-    novalues  = novalues.map(function (v) { return v.toLowerCase(); });
-
-    var rl = readline.createInterface({
+    const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout
     });
 
-    rl.question(question + ' ', (answer) => {
-        rl.close();
-
-        var result;
-        var cleaned = answer.trim().toLowerCase();
-
-        if (cleaned == '' && defaultvalue != null) {
-            result = defaultvalue;
-        }
-        else if (yesvalues.indexOf(cleaned) >= 0) {
-            result = true;
-        }
-        else if (novalues.indexOf(cleaned) >= 0) {
-            result = false;
-        }
-        else {
-            invalidHandlerFunction(question, defaultvalue, callback, yesvalues, novalues);
-            return;
-        }
-
-        callback(result);
-    });
-}
-
-
-function askAsync (question, defaultvalue, yesvalues, novalues) {
     return new Promise(function (resolve, reject) {
-        ask (question, defaultvalue, function (askResult) {
-            resolve(askResult);
-        }, yesvalues, novalues)
+        rl.question(question + ' ', async function (answer) {
+            rl.close();
+
+            const cleaned = answer.trim().toLowerCase();
+            if (cleaned == '' && defaultValue != null)
+                return resolve(defaultValue);
+    
+            if (yesValues.indexOf(cleaned) >= 0)
+                return resolve(true);
+                
+            if (noValues.indexOf(cleaned) >= 0)
+                return resolve(false);
+    
+            invalid({ question, defaultValue, yesValues, noValues });
+            const result = await ask({ question, defaultValue, yesValues, noValues, invalid });
+            resolve(result);
+        });
     });
 }
 
 
-module.exports = {
-    ask: ask,
-    askAsync: askAsync,
-    onInvalidHandler: onInvalidHandler,
-    options: options
-};
+module.exports = ask;

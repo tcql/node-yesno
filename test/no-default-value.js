@@ -3,7 +3,13 @@
 var yesno = require('../yesno');
 
 
-function handleResponse (ok) { }
+async function main () {
+	await yesno({
+		question: "Are you sure you want to 'rm-rf /' ?"
+	});
+}
 
 
-yesno.ask("Are you sure you want to 'rm-rf /' ?", null, handleResponse);
+main();
+
+

@@ -1,17 +1,20 @@
 'use strict';
 
-var yesno = require('../yesno');
+const yesno = require('../yesno');
 
 
-function ask() {
-	yesno.ask('Are you sure you want to continue?', true, function (ok) {
-	    if (ok) {
-	        console.log('Yay!\n');
-	    } else {
-	        console.log('Nope.');
-	        ask();
-	    }
-	});
+async function main () {
+	let done = false;
+
+	while (!done) {
+		done = await yesno({
+			defaultValue: true,
+			question: 'Are you sure you want to continue?'
+		});
+
+		console.log( done ? 'Yay!' : 'Nope.');
+	}
 }
 
-ask();
+
+main();

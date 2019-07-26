@@ -1,12 +1,18 @@
 'use strict';
 
-var yesno = require('../yesno');
+const yesno = require('../yesno');
 
 
-yesno.ask('Dude, Is this groovy or what?', true, function (ok) {
-    if (ok) {
-        console.log('Tubular.');
-    } else {
-        console.log('Aw, why you gotta be like that?');
-    }
-}, [ 'groovy' ], [ 'or what' ]);
+async function main () {
+	const ok = await yesno({
+		defaultValue: true,
+		question: 'Dude, Is this groovy or what?',
+		yesValues: [ 'groovy' ],
+		noValues: [ 'or what' ]
+	});
+
+	console.log( ok ? 'Tubular.' : 'Aw, why you gotta be like that?');
+}
+
+
+main();

@@ -4,13 +4,6 @@ var spawn = require('child_process').exec;
 var tap   = require('tap');
 
 
-spawn(`printf "n\ny\n" | node test/multiple.js`, function (err, stdout,stderr) {
-	tap.equal(err, null);
-	tap.equal(stdout.toString(), 'Are you sure you want to continue? Nope.\n' +
-								 'Are you sure you want to continue? ');
-	tap.equal(stderr.toString(), '');
-});
-
 spawn('echo "y" | node ' + __dirname + '/basic.js', function (err, stdout, stderr) {
 	tap.equal(err, null);
 	tap.equal(stdout.toString(), 'Are you sure you want to continue? Yay!\n');
@@ -30,12 +23,6 @@ spawn('echo "\n" | node ' + __dirname + '/no-default-value.js', function (err, s
 	tap.equal(stderr.toString(), '');
 });
 
-spawn('echo "nein" | node ' + __dirname + '/global-change-yesno-values.js', function (err, stdout, stderr) {
-	tap.equal(err, null);
-	tap.equal(stdout.toString(), 'How is your multi-lingual? Nope.\n');
-	tap.equal(stderr.toString(), '');
-});
-
 spawn('echo "ja" | node ' + __dirname + '/global-change-yesno-values.js', function (err, stdout, stderr) {
 	tap.equal(err, null);
 	tap.equal(stdout.toString(), 'How is your multi-lingual? Yay!\n');
@@ -44,13 +31,13 @@ spawn('echo "ja" | node ' + __dirname + '/global-change-yesno-values.js', functi
 
 spawn('echo "eep" | node ' + __dirname + '/custom-invalid-response-handler.js', function (err, stdout, stderr) {
 	tap.equal(err, null);
-	tap.equal(stdout.toString(), 'Ready to continue? \n Whoa. That was not a good answer. Well. No more tries for you.');
+	tap.equal(stdout.toString(), 'Ready to continue? \n Whoa. That was not a good answer. Well. No more tries for you.\nReady to continue? ');
 	tap.equal(stderr.toString(), '');
 });
 
-spawn('echo "y" | node ' + __dirname + '/promisified-ask.js', function (err, stdout, stderr) {
+spawn(`printf "n\ny\n" | node test/multiple.js`, function (err, stdout,stderr) {
 	tap.equal(err, null);
-	tap.equal(stdout.toString(), 'Are you ready for the future? Ready! :)\n');
+	tap.equal(stdout.toString(), 'Are you sure you want to continue? Nope.\n' +
+								 'Are you sure you want to continue? ');
 	tap.equal(stderr.toString(), '');
 });
-

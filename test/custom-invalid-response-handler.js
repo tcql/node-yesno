@@ -1,16 +1,21 @@
 'use strict';
 
-var yesno = require('../yesno');
+const yesno = require('../yesno');
 
 
-yesno.onInvalidHandler(function (question, default_value, callback, yes_values, no_values) {
-    process.stdout.write("\n Whoa. That was not a good answer. Well. No more tries for you.");
-});
+async function main () {
+	const ok = await yesno({
+		defaultValue: true,
+		invalid: function ({ question, defaultValue, callback, yesValues, noValues }) {
+		    process.stdout.write("\n Whoa. That was not a good answer. Well. No more tries for you.\n");
+		},
+		question: 'Ready to continue?',
+		yesValues: [ 'groovy' ],
+		noValues: [ 'or what' ]
+	});
 
-yesno.ask('Ready to continue?', true, function (ok) {
-    if (ok) {
-        console.log('Yes.');
-    } else {
-        console.log('No.');
-    }
-}, [ 'groovy' ], [ 'or what' ]);
+	console.log( ok ? 'Yes.' : 'No.');
+}
+
+
+main();
