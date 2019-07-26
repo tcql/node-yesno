@@ -78,6 +78,7 @@ and re-ask the question. If you want to change this behavior, you can set the in
 
 ```javascript
 const ok = await yesno({
+    question: 'Ready to continue?',
     invalid: function ({ question, defaultValue, yesValues, noValues }) {
         process.stdout.write("\n Whoa. That was not a good answer. Well. No more tries for you.");
         process.exit(1);
