@@ -22,5 +22,6 @@
   "license": "BSD",
   "devDependencies": {
     "tap": "^14.0.0"
-  }
+  },
+  "dependencies": {}
 }

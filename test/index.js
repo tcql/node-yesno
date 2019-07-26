@@ -4,6 +4,13 @@ var spawn = require('child_process').exec;
 var tap   = require('tap');
 
 
+spawn(`printf "n\ny\n" | node test/multiple.js`, function (err, stdout,stderr) {
+	tap.equal(err, null);
+	tap.equal(stdout.toString(), 'Are you sure you want to continue? Nope.\n' +
+								 'Are you sure you want to continue? ');
+	tap.equal(stderr.toString(), '');
+});
+
 spawn('echo "y" | node ' + __dirname + '/basic.js', function (err, stdout, stderr) {
 	tap.equal(err, null);
 	tap.equal(stdout.toString(), 'Are you sure you want to continue? Yay!\n');

@@ -1,5 +1,8 @@
 'use strict';
 
+var readline = require('readline');
+
+
 var options = {
     yes: [ 'yes', 'y' ],
     no:  [ 'no', 'n' ]
@@ -22,9 +25,8 @@ function onInvalidHandler (callback) {
 
 
 function ask (question, defaultvalue, callback, yesvalues, novalues) {
-    if (!invalidHandlerFunction) {
+    if (!invalidHandlerFunction)
         invalidHandlerFunction = defaultInvalidHandler;
-    }
 
     yesvalues = yesvalues ? yesvalues : options.yes;
     novalues  = novalues  ? novalues : options.no;
@@ -32,11 +34,16 @@ function ask (question, defaultvalue, callback, yesvalues, novalues) {
     yesvalues = yesvalues.map(function (v) { return v.toLowerCase(); });
     novalues  = novalues.map(function (v) { return v.toLowerCase(); });
 
-    process.stdout.write(question + ' ');
-    process.stdin.setEncoding('utf8');
-    process.stdin.once('data', function (val) {
+    var rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+
+    rl.question(question + ' ', (answer) => {
+        rl.close();
+
         var result;
-        var cleaned = val.trim().toLowerCase();
+        var cleaned = answer.trim().toLowerCase();
 
         if (cleaned == '' && defaultvalue != null) {
             result = defaultvalue;
@@ -52,9 +59,8 @@ function ask (question, defaultvalue, callback, yesvalues, novalues) {
             return;
         }
 
-        process.stdin.unref();
         callback(result);
-    }).resume();
+    });
 }
 
 
