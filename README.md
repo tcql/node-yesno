@@ -32,12 +32,12 @@ const ok = await yesno({
 });
 ````
 
-If `yesValues` or `noValues` aren't supplied, yesno falls back on accepting `yes`, `y` , `no`, and `n`.
+yesno accepts `yes`, `y` , `no`, and `n` values by default.
 
 All yesno responses are case insensitive.
 
 
-##### Custom Yes/No response values
+##### Custom Yes/No values
 
 ```javascript
 const ok = await yesno({
@@ -54,7 +54,8 @@ Now the question only responds to `groovy` as yes and `or what` as no.
 
 ##### No default value
 
-Sometimes you may want to ensure the user didn't accidentally accept a default. You can disable the default response by passing null as the defaultValue parameter
+Sometimes you may want to ensure the user didn't accidentally accept a default.
+You can disable the default response by passing null as the defaultValue parameter.
 
 ```javascript
 const ok = await yesno({
