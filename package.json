@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "description": "A simple library for asking boolean questions in cli programs",
   "main": "yesno.js",
+  "types": "yesno.d.ts",
   "scripts": {
     "test": "tap test/index.js"
   },
