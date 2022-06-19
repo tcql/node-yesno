@@ -5,7 +5,7 @@
   "main": "yesno.js",
   "types": "yesno.d.ts",
   "scripts": {
-    "test": "tap test/index.js"
+    "test": "tap --no-cov --no-coverage-report test/index.js"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 A nodejs library for issuing and handling responses to yes/no questions 
 
-![tests](https://github.com/tcql/node-yesno/actions/workflows/main.yml/badge.svg)
+[![CI](https://github.com/tcql/node-yesno/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/tcql/node-yesno/actions/workflows/main.yml)
 
 
 Supports Node 8+.
