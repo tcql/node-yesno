@@ -1,6 +1,7 @@
-[![Build Status](https://travis-ci.org/tcql/node-yesno.svg?branch=master)](https://travis-ci.org/tcql/node-yesno)
-
 A nodejs library for issuing and handling responses to yes/no questions 
+
+![tests](https://github.com/tcql/node-yesno/actions/workflows/main.yml/badge.svg)
+
 
 Supports Node 8+.
 
@@ -42,7 +43,7 @@ All yesno responses are case insensitive.
 const ok = await yesno({
     question: 'Dude, Is this groovy or what?',
     yesValues: [ 'groovy' ],
-    noValues: [ 'or what' ]
+    noValues: [ 'or what', 'nah' ]
 });
 
 console.log(ok ? 'Tubular.' : 'Aw, why you gotta be like that?');
