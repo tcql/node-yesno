@@ -4,8 +4,8 @@ const readline = require('readline');
 
 
 const options = {
-    yes: [ 'yes', 'y' ],
-    no:  [ 'no', 'n' ]
+    yes: [ 'yes', 'y', 'Y', 'Yes', 'YES', 'yES', 'yEs', 'YeS'],
+    no:  [ 'no', 'n', 'N', 'No', 'NO', 'nO']
 };
 
 
@@ -20,8 +20,8 @@ async function ask ({ question, defaultValue, yesValues, noValues, invalid }) {
     if (!invalid || typeof invalid !== 'function')
         invalid = defaultInvalidHandler;
 
-    yesValues = (yesValues || options.yes).map((v) => v.toLowerCase());
-    noValues  = (noValues || options.no).map((v) => v.toLowerCase());
+    yesValues = (yesValues || options.yes));
+    noValues  = (noValues || options.no);
 
     const rl = readline.createInterface({
       input: process.stdin,
